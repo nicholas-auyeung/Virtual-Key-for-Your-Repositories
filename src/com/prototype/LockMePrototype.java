@@ -13,10 +13,12 @@ public class LockMePrototype {
 
 		int operation;
 
-		String directoryName;
+		// add default
+		String directoryName = "", fileName;
 
 		ApplicationOperations appOperations = new ApplicationOperations();
 		LockMeDirectoryHandler directoryHandler = new LockMeDirectoryHandler();
+
 		Scanner scan = new Scanner(System.in);
 
 		System.out.println("*************************************");
@@ -36,9 +38,11 @@ public class LockMePrototype {
 			operation = scan.nextInt();
 			switch (operation) {
 			case 1:
-
-				// display existing files in directory
-				featureValid = true;
+				try {
+					directoryHandler.displayDirectory(directoryName);
+				} catch (NullDirectoryException e1) {
+					
+				}
 				break;
 			case 2:
 				while (operationValid == false) {
@@ -79,6 +83,7 @@ public class LockMePrototype {
 				}
 				break;
 			case 3:
+				LockMeFileHandler fileHandler = new LockMeFileHandler(directoryName);
 				while (operationValid == false) {
 					System.out.println("-------------------------");
 					System.out.println("File Management");
@@ -93,15 +98,26 @@ public class LockMePrototype {
 					operation = scan.nextInt();
 					switch (operation) {
 					case 1:
+						fileName = scan.next();
+						try {
+							fileHandler.addFile(fileName);
+						} catch (FailCreateFileException e) {
 
+						}
 						break;
 					case 2:
+						fileName = scan.next();
+						try {
+							fileHandler.deleteFile(fileName);
+						} catch (FileDoesNotExistException e) {
 
+						}
 						break;
 					case 3:
+
 						break;
 					case 4:
-						System.out.println("Returing to main menu");
+						System.out.println("Returning to main menu");
 						operationValid = true;
 						break;
 					default:
@@ -119,7 +135,6 @@ public class LockMePrototype {
 				System.out.println("Not a valid feature");
 				break;
 			}
-
 		}
 
 		scan.close();
