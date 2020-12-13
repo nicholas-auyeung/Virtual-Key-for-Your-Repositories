@@ -2,9 +2,13 @@ package com.business.operations;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import com.exceptions.FailCreateFileException;
 import com.exceptions.FileDoesNotExistException;
+import com.exceptions.NullDirectoryException;
 
 public class LockMeFileHandler implements LockMeFileHandlerOperations {
 
@@ -36,20 +40,30 @@ public class LockMeFileHandler implements LockMeFileHandlerOperations {
 	}
 
 	@Override
-	public void deleteFile(String fileName) throws FileDoesNotExistException{
-		//append fileName onto filePath then pass
+	public void deleteFile(String fileName) throws FileDoesNotExistException {
+		// append fileName onto filePath then pass
 		File f = new File(fileName);
-		if(f.exists()) {
+		if (f.exists()) {
 			f.delete();
-		}else {
+		} else {
 			throw new FileDoesNotExistException("File does not exist");
 		}
 	}
 
 	@Override
-	public void searchFile(String fileName) {
-		// TODO Auto-generated method stub
-
+	public void searchFile(String fileName) throws NullDirectoryException, FileDoesNotExistException{
+		// append fileName onto filePath then pass
+		File f = new File(fileName);
+		List<String> children = Arrays.asList(f.list());
+		if (children == null) {
+			throw new NullDirectoryException("Directory is empty");
+		} else {
+			if (f.exists()) {
+				System.out.println("File is " + fileName + " found");
+			} else {
+				throw new FileDoesNotExistException("File is not found");
+			}
+		}
 	}
 
 }

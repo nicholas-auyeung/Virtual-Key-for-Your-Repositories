@@ -2,6 +2,7 @@ package com.business.operations;
 
 import com.exceptions.DirectoryNotFoundException;
 import com.exceptions.FailCreateDirectoryException;
+import com.exceptions.FileDoesNotExistException;
 import com.exceptions.IsNotDirectoryException;
 import com.exceptions.NullDirectoryException;
 

@@ -2,6 +2,7 @@ package com.business.operations;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import com.exceptions.*;
@@ -14,24 +15,21 @@ public class LockMeDirectoryHandler implements LockMeDirectoryOperations {
 	@Override
 	public void displayDirectory(String directoryName) throws NullDirectoryException{
 		File dir = new File(directoryName);
-		//String[] children = dir.list();
-		List children = Arrays.asList(dir.list());
-		
-		//convert to arrayList logic
+		List<String> children = Arrays.asList(dir.list());
 		if(children == null) {
 			throw new NullDirectoryException("Directory is empty");
 		}else {
+			Collections.sort(children);
 			int i = 0;
 			String fileName;
 			for(String child : children) {
-				//fileName = children[i];
+				fileName = children.get(i);
 				i++;
 				System.out.println(fileName);
 			}
 		}
-
 	}
-
+	
 	@Override
 	public void makeDirectory(String directoryName) throws FailCreateDirectoryException {
 		File f = new File(directoryName);

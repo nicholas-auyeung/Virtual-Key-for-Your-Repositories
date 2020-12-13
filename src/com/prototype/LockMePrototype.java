@@ -21,15 +21,15 @@ public class LockMePrototype {
 
 		Scanner scan = new Scanner(System.in);
 
-		System.out.println("*************************************");
+		System.out.println("*************************************\n");
 		System.out.println("Welcome to LockMe.com Prototype \n");
 		System.out.println("*************************************");
 		System.out.println("Developer: Nicholas Auyeung");
 
 		while (featureValid == false) {
-			System.out.println("Main Menu \n");
+			System.out.println("\nMain Menu \n");
 			// output current directory
-			System.out.println("Current directory");
+			System.out.println("Current directory\n");
 			System.out.println("Enter the following feature you would like to access: ");
 			System.out.println("(1) Display existing files in current directory");
 			System.out.println("(2) Directory management");
@@ -58,6 +58,7 @@ public class LockMePrototype {
 					operation = scan.nextInt();
 					switch (operation) {
 					case 1:
+						System.out.println("Enter an existing directory you would like to switch to: ");
 						directoryName = scan.next();
 						try {
 							directoryHandler.validDirectory(directoryName);
@@ -66,6 +67,7 @@ public class LockMePrototype {
 						}
 						break;
 					case 2:
+						System.out.println("Enter the name of the directory you would like to create: ");
 						directoryName = scan.next();
 						try {
 							directoryHandler.makeDirectory(directoryName);
@@ -74,7 +76,7 @@ public class LockMePrototype {
 						}
 						break;
 					case 3:
-						System.out.println("Returing to main menu");
+						System.out.println("Returing to main menu...");
 						operationValid = true;
 					default:
 						System.out.println("Not a valid operation");
@@ -98,6 +100,7 @@ public class LockMePrototype {
 					operation = scan.nextInt();
 					switch (operation) {
 					case 1:
+						System.out.println("Enter the name of the directory you would like to create: ");
 						fileName = scan.next();
 						try {
 							fileHandler.addFile(fileName);
@@ -106,6 +109,7 @@ public class LockMePrototype {
 						}
 						break;
 					case 2:
+						System.out.println("Enter the name of the file you would like to delete: ");
 						fileName = scan.next();
 						try {
 							fileHandler.deleteFile(fileName);
@@ -114,7 +118,15 @@ public class LockMePrototype {
 						}
 						break;
 					case 3:
-
+						System.out.println("Enter the name of the file you would like to search for: ");
+						fileName = scan.next();
+						try {
+							fileHandler.searchFile(fileName);
+						} catch (NullDirectoryException e) {
+		
+						} catch (FileDoesNotExistException e) {
+							
+						}
 						break;
 					case 4:
 						System.out.println("Returning to main menu");
