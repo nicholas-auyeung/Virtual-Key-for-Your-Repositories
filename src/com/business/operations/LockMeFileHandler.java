@@ -37,12 +37,13 @@ public class LockMeFileHandler implements LockMeFileHandlerOperations {
 
 	@Override
 	public void addFile(String fileName) throws InvalidFileNameException, FailCreateFileException {
-		pathName += fileName;
+		pathName += "/" + fileName;
+		System.out.println(pathName);
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(fileName);
 		if(matcher.matches()) {
 			try {
-				File f = new File(fileName);
+				File f = new File(pathName);
 				if (f.createNewFile()) {
 					System.out.println("File creation succeeded\n");
 				} else {
@@ -59,11 +60,11 @@ public class LockMeFileHandler implements LockMeFileHandlerOperations {
 
 	@Override
 	public void deleteFile(String fileName) throws InvalidFileNameException, FileDoesNotExistException {
-		pathName += fileName;
+		pathName += "/" + fileName;
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(fileName);
 		if(matcher.matches()) {
-			File f = new File(fileName);
+			File f = new File(pathName);
 			if (f.exists()) {
 				f.delete();
 				System.out.println("File deleted\n");
@@ -81,12 +82,13 @@ public class LockMeFileHandler implements LockMeFileHandlerOperations {
 		Matcher matcher = pattern.matcher(fileName);
 		if(matcher.matches()) {
 			File f = new File(pathName);
+			System.out.println(pathName);
 			List<String> children = Arrays.asList(f.list());
 			if (children == null) {
 				throw new NullDirectoryException("Directory is empty\n");
 			} else {
 				if(children.contains(fileName)) {
-					System.out.println("File is " + fileName + " found\n");
+					System.out.println("File " + fileName + " is found\n");
 				}else {
 					throw new FileDoesNotExistException("File is not found\n");
 				}

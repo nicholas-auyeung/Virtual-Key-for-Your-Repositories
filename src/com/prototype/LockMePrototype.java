@@ -19,8 +19,12 @@ public class LockMePrototype {
 
 		ApplicationOperations appOperations = new ApplicationOperations();
 		LockMeDirectoryHandler directoryHandler = new LockMeDirectoryHandler();
+		
+		final String defaultDirectory = LockMeDirectoryHandler.getLocation();
 
-		directoryName = LockMeDirectoryHandler.getLocation();
+		directoryName = defaultDirectory;
+		
+		LockMeFileHandler fileHandler = new LockMeFileHandler(directoryName);
 
 		Scanner scan = new Scanner(System.in);
 
@@ -31,9 +35,9 @@ public class LockMePrototype {
 
 		while (featureValid == false) {
 			try {
-				System.out.println("\n---------------------------");
+				System.out.println("\n-----------------------------------");
 				System.out.println("Main Menu");
-				System.out.println("------------------------------\n");
+				System.out.println("-----------------------------------\n");
 				System.out.println("Current directory: " + directoryName + "\n");
 				System.out.println("Enter the following feature you would like to access: ");
 				System.out.println("(1) Display existing files in current directory");
@@ -55,7 +59,7 @@ public class LockMePrototype {
 						try {
 							System.out.println("-----------------------------------");
 							System.out.println("Directory Management");
-							System.out.println("------------------------------------ \n");
+							System.out.println("-----------------------------------\n");
 
 							System.out.println("Current directory: " + directoryName + "\n");
 							System.out.println("Enter the following operation that you would like to perform: ");
@@ -66,10 +70,17 @@ public class LockMePrototype {
 							switch (operation) {
 							case 1:
 								System.out.println("Enter an existing directory you would like to switch to: ");
+								System.out.println("Type 'default' to return to the default directory");
 								input = scan.next();
 								try {
-									directoryHandler.validDirectory(directoryName);
-									directoryName += "/" + input;
+									if(input.compareTo("default") == 0) {
+										directoryName = defaultDirectory;
+										fileHandler.setPathName(directoryName);
+									}else {
+										directoryHandler.validDirectory(directoryName + "/" + input);
+										directoryName = defaultDirectory + "/" + input;
+										fileHandler.setPathName(directoryName);
+									}
 								} catch (IsNotDirectoryException| DirectoryNotFoundException e) {
 									System.out.println(e.getMessage());									
 								}
@@ -78,8 +89,9 @@ public class LockMePrototype {
 								System.out.println("Enter the name of the directory you would like to create: ");
 								input = scan.next();
 								try {
-									directoryHandler.makeDirectory(directoryName);
-									directoryName = input;
+									directoryHandler.makeDirectory(input);
+									directoryName = defaultDirectory + "/" + input;
+									fileHandler.setPathName(directoryName);
 								} catch (FailCreateDirectoryException e) {
 									System.out.println(e.getMessage());
 								}
@@ -99,12 +111,11 @@ public class LockMePrototype {
 					}
 					break;
 				case 3:
-					LockMeFileHandler fileHandler = new LockMeFileHandler(directoryName);
 					while (operationValid == false) {
 						try {
-							System.out.println("-------------------------");
+							System.out.println("-----------------------------------");
 							System.out.println("File Management");
-							System.out.println("--------------------------");
+							System.out.println("-----------------------------------");
 	
 							System.out.println("Current directory: " + directoryName + "\n");
 							System.out.println("Enter the following operation that you would like to perform: ");
@@ -143,7 +154,7 @@ public class LockMePrototype {
 								}
 								break;
 							case 4:
-								System.out.println("Returning to main menu");
+								System.out.println("Returning to main menu...");
 								operationValid = true;
 								break;
 							default:
