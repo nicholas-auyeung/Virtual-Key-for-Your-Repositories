@@ -10,8 +10,19 @@ import com.exceptions.*;
 public class LockMeDirectoryHandler implements LockMeDirectoryOperations {
 
 	// main parent directory
-	final static String location = "";
+	final static private String location = System.getProperty("user.dir");
 	
+	public LockMeDirectoryHandler() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public static String getLocation() {
+		return location;
+	}
+
+
+
 	@Override
 	public void displayDirectory(String directoryName) throws NullDirectoryException{
 		File dir = new File(directoryName);
@@ -19,6 +30,7 @@ public class LockMeDirectoryHandler implements LockMeDirectoryOperations {
 		if(children == null) {
 			throw new NullDirectoryException("Directory is empty");
 		}else {
+			/*
 			Collections.sort(children);
 			int i = 0;
 			String fileName;
@@ -26,7 +38,9 @@ public class LockMeDirectoryHandler implements LockMeDirectoryOperations {
 				fileName = children.get(i);
 				i++;
 				System.out.println(fileName);
-			}
+			}*/
+			children.stream().sorted().forEach(System.out::println);
+			
 		}
 	}
 	

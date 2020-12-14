@@ -12,13 +12,14 @@ public class LockMePrototype {
 		boolean featureValid = false, operationValid = false;
 
 		int operation;
-
-		// add default
-		String directoryName = "", fileName;
+		
+		String directoryName, fileName;
 
 		ApplicationOperations appOperations = new ApplicationOperations();
 		LockMeDirectoryHandler directoryHandler = new LockMeDirectoryHandler();
-
+		
+		directoryName = LockMeDirectoryHandler.getLocation();
+		
 		Scanner scan = new Scanner(System.in);
 
 		System.out.println("*************************************\n");
@@ -28,8 +29,7 @@ public class LockMePrototype {
 
 		while (featureValid == false) {
 			System.out.println("\nMain Menu \n");
-			// output current directory
-			System.out.println("Current directory\n");
+			System.out.println("Current directory: " + directoryName + "\n");
 			System.out.println("Enter the following feature you would like to access: ");
 			System.out.println("(1) Display existing files in current directory");
 			System.out.println("(2) Directory management");
@@ -49,8 +49,8 @@ public class LockMePrototype {
 					System.out.println("-----------------------------------");
 					System.out.println("Directory Management");
 					System.out.println("------------------------------------ \n");
-					// output current directory
-					System.out.println("Current directory");
+					
+					System.out.println("Current directory: " + directoryName + "\n");
 					System.out.println("Enter the following operation that you would like to perform: ");
 					System.out.println("(1) Switch to an existing directory");
 					System.out.println("(2) Create a new directory");
@@ -90,8 +90,8 @@ public class LockMePrototype {
 					System.out.println("-------------------------");
 					System.out.println("File Management");
 					System.out.println("--------------------------");
-					// output current directory
-					System.out.println("Current Directory: ");
+					
+					System.out.println("Current directory: " + directoryName + "\n");
 					System.out.println("Enter the following operation that you would like to perform: ");
 					System.out.println("(1) Add a file");
 					System.out.println("(2) Delete a file");
@@ -102,10 +102,11 @@ public class LockMePrototype {
 					case 1:
 						System.out.println("Enter the name of the directory you would like to create: ");
 						fileName = scan.next();
+						
 						try {
 							fileHandler.addFile(fileName);
-						} catch (FailCreateFileException e) {
-
+						} catch (InvalidFileNameException | FailCreateFileException e) {
+							
 						}
 						break;
 					case 2:
@@ -113,7 +114,7 @@ public class LockMePrototype {
 						fileName = scan.next();
 						try {
 							fileHandler.deleteFile(fileName);
-						} catch (FileDoesNotExistException e) {
+						} catch (InvalidFileNameException | FileDoesNotExistException e) {
 
 						}
 						break;
@@ -122,9 +123,7 @@ public class LockMePrototype {
 						fileName = scan.next();
 						try {
 							fileHandler.searchFile(fileName);
-						} catch (NullDirectoryException e) {
-		
-						} catch (FileDoesNotExistException e) {
+						} catch (InvalidFileNameException | NullDirectoryException | FileDoesNotExistException e) {
 							
 						}
 						break;
