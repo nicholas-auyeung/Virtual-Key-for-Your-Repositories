@@ -8,12 +8,10 @@ import com.exceptions.*;
 
 public class LockMeDirectoryHandler implements LockMeDirectoryOperations {
 
-	// main parent directory
 	final static private String location = System.getProperty("user.dir");
 	
 	public LockMeDirectoryHandler() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public static String getLocation() {
@@ -27,19 +25,9 @@ public class LockMeDirectoryHandler implements LockMeDirectoryOperations {
 		File dir = new File(directoryName);
 		List<String> children = Arrays.asList(dir.list());
 		if(children == null) {
-			throw new NullDirectoryException("Directory is empty");
+			throw new NullDirectoryException("Directory is empty\n");
 		}else {
-			/*
-			Collections.sort(children);
-			int i = 0;
-			String fileName;
-			for(String child : children) {
-				fileName = children.get(i);
-				i++;
-				System.out.println(fileName);
-			}*/
 			children.stream().sorted().forEach(System.out::println);
-			
 		}
 	}
 	
@@ -47,9 +35,9 @@ public class LockMeDirectoryHandler implements LockMeDirectoryOperations {
 	public void makeDirectory(String directoryName) throws FailCreateDirectoryException {
 		File f = new File(directoryName);
 		if (f.mkdir()) {
-			System.out.println("Directory creation successful");
+			System.out.println("Directory creation successful\n");
 		} else {
-			throw new FailCreateDirectoryException("Directory creation failed");
+			throw new FailCreateDirectoryException("Directory creation failed\n");
 		}
 
 	}
@@ -59,12 +47,12 @@ public class LockMeDirectoryHandler implements LockMeDirectoryOperations {
 		File f = new File(directoryName);
 		if (f.exists()) {
 			if (f.isDirectory()) {
-				System.out.println("Directory exists");
+				System.out.println("Directory exists\n");
 			} else {
-				throw new IsNotDirectoryException("This is not a directory");
+				throw new IsNotDirectoryException("This is not a directory\n");
 			}
 		} else {
-			throw new DirectoryNotFoundException("Directory not found");
+			throw new DirectoryNotFoundException("Directory not found\n");
 		}
 	}
 

@@ -44,15 +44,15 @@ public class LockMeFileHandler implements LockMeFileHandlerOperations {
 			try {
 				File f = new File(fileName);
 				if (f.createNewFile()) {
-					System.out.println("File creation succeeded");
+					System.out.println("File creation succeeded\n");
 				} else {
-					System.out.println("File already exists");
+					System.out.println("File already exists\n");
 				}
 			} catch (IOException e) {
-				throw new FailCreateFileException("Error occured");
+				throw new FailCreateFileException("Error occured\n");
 			}
 		}else {
-			throw new InvalidFileNameException("Invalid filename");
+			throw new InvalidFileNameException("Invalid filename\n");
 		}
 
 	}
@@ -66,33 +66,33 @@ public class LockMeFileHandler implements LockMeFileHandlerOperations {
 			File f = new File(fileName);
 			if (f.exists()) {
 				f.delete();
+				System.out.println("File deleted\n");
 			} else {
-				throw new FileDoesNotExistException("File does not exist");
+				throw new FileDoesNotExistException("File does not exist\n");
 			}
 		}else {
-			throw new InvalidFileNameException("Invalid filename");
+			throw new InvalidFileNameException("Invalid filename\n");
 		}
 	}
 
 	@Override
 	public void searchFile(String fileName) throws InvalidFileNameException, NullDirectoryException, FileDoesNotExistException{
-		pathName += fileName;
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(fileName);
 		if(matcher.matches()) {
-			File f = new File(fileName);
+			File f = new File(pathName);
 			List<String> children = Arrays.asList(f.list());
 			if (children == null) {
-				throw new NullDirectoryException("Directory is empty");
+				throw new NullDirectoryException("Directory is empty\n");
 			} else {
-				if (f.exists()) {
-					System.out.println("File is " + fileName + " found");
-				} else {
-					throw new FileDoesNotExistException("File is not found");
+				if(children.contains(fileName)) {
+					System.out.println("File is " + fileName + " found\n");
+				}else {
+					throw new FileDoesNotExistException("File is not found\n");
 				}
 			}
 		}else {
-			throw new InvalidFileNameException("Invalid filename");
+			throw new InvalidFileNameException("Invalid filename\n");
 		}
 	}
 

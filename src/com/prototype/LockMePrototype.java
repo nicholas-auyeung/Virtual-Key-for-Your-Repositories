@@ -69,7 +69,7 @@ public class LockMePrototype {
 								input = scan.next();
 								try {
 									directoryHandler.validDirectory(directoryName);
-									directoryName = input;
+									directoryName += "/" + input;
 								} catch (IsNotDirectoryException| DirectoryNotFoundException e) {
 									System.out.println(e.getMessage());									
 								}
