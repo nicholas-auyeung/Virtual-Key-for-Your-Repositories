@@ -4,7 +4,6 @@ public class NullDirectoryException extends Exception{
 
 	public NullDirectoryException(String message) {
 		super(message);
-		System.out.println(message);
 	}
 	
 }

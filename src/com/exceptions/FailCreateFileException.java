@@ -4,7 +4,6 @@ public class FailCreateFileException extends Exception{
 
 	public FailCreateFileException(String message) {
 		super(message);
-		System.out.println(message);
 	}
 	
 }
