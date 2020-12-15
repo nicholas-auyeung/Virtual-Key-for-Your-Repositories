@@ -37,13 +37,12 @@ public class LockMeFileHandler implements LockMeFileOperations {
 
 	@Override
 	public void addFile(String fileName) throws InvalidFileNameException, FailCreateFileException {
-		pathName += "/" + fileName;
-		System.out.println(pathName);
+		String filePath = pathName + "/" + fileName;
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(fileName);
 		if(matcher.matches()) {
 			try {
-				File f = new File(pathName);
+				File f = new File(filePath);
 				if (f.createNewFile()) {
 					System.out.println("File creation succeeded\n");
 				} else {
@@ -60,11 +59,11 @@ public class LockMeFileHandler implements LockMeFileOperations {
 
 	@Override
 	public void deleteFile(String fileName) throws InvalidFileNameException, FileDoesNotExistException {
-		pathName += "/" + fileName;
+		String filePath = pathName + "/" + fileName;
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(fileName);
 		if(matcher.matches()) {
-			File f = new File(pathName);
+			File f = new File(filePath);
 			if (f.exists()) {
 				f.delete();
 				System.out.println("File deleted\n");
@@ -82,7 +81,6 @@ public class LockMeFileHandler implements LockMeFileOperations {
 		Matcher matcher = pattern.matcher(fileName);
 		if(matcher.matches()) {
 			File f = new File(pathName);
-			System.out.println(pathName);
 			List<String> children = Arrays.asList(f.list());
 			if (children == null) {
 				throw new NullDirectoryException("Directory is empty\n");

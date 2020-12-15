@@ -97,11 +97,11 @@ public class LockMePrototype {
 								}
 								break;
 							case 3:
-								System.out.println("Returing to main menu...");
+								System.out.println("Returning to main menu...");
 								operationValid = true;
 								break;
 							default:
-								System.out.println("Not a valid operationDIREC");
+								System.out.println("Not a valid operation");
 								break;
 							}
 						} catch (InputMismatchException e) {
