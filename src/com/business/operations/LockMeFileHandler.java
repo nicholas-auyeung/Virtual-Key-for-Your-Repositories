@@ -12,7 +12,7 @@ import com.exceptions.FileDoesNotExistException;
 import com.exceptions.InvalidFileNameException;
 import com.exceptions.NullDirectoryException;
 
-public class LockMeFileHandler implements LockMeFileHandlerOperations {
+public class LockMeFileHandler implements LockMeFileOperations {
 	
 	public static final String regex = "^[a-zA-Z0-9](?:[a-zA-Z0-9 ._-]*[a-zA-Z0-9])?\\.[a-zA-Z0-9_-]+$";
 

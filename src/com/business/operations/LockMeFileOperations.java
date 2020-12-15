@@ -5,7 +5,7 @@ import com.exceptions.FileDoesNotExistException;
 import com.exceptions.InvalidFileNameException;
 import com.exceptions.NullDirectoryException;
 
-public interface LockMeFileHandlerOperations {
+public interface LockMeFileOperations {
 
 	public void addFile(String fileName) throws FailCreateFileException, InvalidFileNameException;
 
